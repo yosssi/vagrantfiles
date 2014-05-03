@@ -3,6 +3,11 @@
 # Define variables.
 BASH_PROFILE=/home/vagrant/.bash_profile
 GO_HOME=/host/go
+GO_FILE_NAME=go1.3beta1.linux-amd64.tar.gz
+JAVA_FILE_NAME=jre-7u55-linux-x64.gz
+JAVA_DIRECTORY_NAME=jre1.7.0_55
+ELASTICSEARCH_DIRECTORY_NAME=elasticsearch-1.1.1
+ELASTICSEARCH_FILE_NAME=${ELASTICSEARCH_DIRECTORY_NAME}.tar.gz
 
 # Create .bash_profile
 touch $BASH_PROFILE
@@ -16,24 +21,35 @@ apt-get update
 apt-get install -y curl
 
 # Install Go 1.3beta1
-curl -o /usr/local/go1.3beta1.linux-amd64.tar.gz https://storage.googleapis.com/golang/go1.3beta1.linux-amd64.tar.gz
-tar -C /usr/local -xzf /usr/local/go1.3beta1.linux-amd64.tar.gz
-rm /usr/local/go1.3beta1.linux-amd64.tar.gz
+curl -o /usr/local/$GO_FILE_NAME https://storage.googleapis.com/golang/$GO_FILE_NAME
+tar -C /usr/local -xzf /usr/local/$GO_FILE_NAME
+rm /usr/local/$GO_FILE_NAME
 echo "export GOROOT=/usr/local/go" >> $BASH_PROFILE
 echo "export GOPATH=$GO_HOME" >> $BASH_PROFILE
 echo "export PATH=\$PATH:\$GOPATH/bin\$GOROOT:\$GOROOT/bin" >> $BASH_PROFILE
+. $BASH_PROFILE
 
 # Install Java 7 Update 55
-curl -o /usr/local/lib/jre-7u51-linux-x64.tar.gz https://s3-ap-northeast-1.amazonaws.com/yosssi/java/jre-7u55-linux-x64.gz
-tar -C /usr/local/lib -xzf /usr/local/lib/jre-7u51-linux-x64.tar.gz
-rm /usr/local/lib/jre-7u51-linux-x64.tar.gz
-echo "export JAVA_HOME=/usr/local/lib/jre1.7.0_55" >> $BASH_PROFILE
+curl -o /usr/local/lib/$JAVA_FILE_NAME https://s3-ap-northeast-1.amazonaws.com/yosssi/java/$JAVA_FILE_NAME
+tar -C /usr/local/lib -xzf /usr/local/lib/$JAVA_FILE_NAME
+rm /usr/local/lib/$JAVA_FILE_NAME
+echo "export JAVA_HOME=/usr/local/lib/$JAVA_DIRECTORY_NAME" >> $BASH_PROFILE
 echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> $BASH_PROFILE
+. $BASH_PROFILE
 
 # Install Elasticsearch 1.1.1
-curl -o /usr/local/lib/elasticsearch-1.1.1.tar.gz https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz
-tar -C /usr/local/lib -xzf /usr/local/lib/elasticsearch-1.1.1.tar.gz
-rm /usr/local/lib/elasticsearch-1.1.1.tar.gz
-echo "export ELASTICSEARCH_HOME=/usr/local/lib/elasticsearch-1.1.1" >> $BASH_PROFILE
+curl -o /usr/local/lib/$ELASTICSEARCH_FILE_NAME https://download.elasticsearch.org/elasticsearch/elasticsearch/$ELASTICSEARCH_FILE_NAME
+tar -C /usr/local/lib -xzf /usr/local/lib/$ELASTICSEARCH_FILE_NAME
+rm /usr/local/lib/$ELASTICSEARCH_FILE_NAME
+echo "export ELASTICSEARCH_HOME=/usr/local/lib/$ELASTICSEARCH_DIRECTORY_NAME" >> $BASH_PROFILE
 echo "export PATH=\$PATH:\$ELASTICSEARCH_HOME/bin" >> $BASH_PROFILE
-chmod 777 /usr/local/lib/elasticsearch-1.1.1
+. $BASH_PROFILE
+chmod 777 $ELASTICSEARCH_HOME
+
+# Install Elasticsearch plugins
+## Install Marvel
+$ELASTICSEARCH_HOME/bin/plugin -i elasticsearch/marvel/latest
+## Install elasticsearch-inquisitor
+$ELASTICSEARCH_HOME/bin/plugin -i polyfractal/elasticsearch-inquisitor
+## Install Japanese (kuromoji) Analysis
+$ELASTICSEARCH_HOME/bin/plugin -i elasticsearch/elasticsearch-analysis-kuromoji/2.1.0
