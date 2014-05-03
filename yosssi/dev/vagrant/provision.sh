@@ -53,3 +53,5 @@ $ELASTICSEARCH_HOME/bin/plugin -i elasticsearch/marvel/latest
 $ELASTICSEARCH_HOME/bin/plugin -i polyfractal/elasticsearch-inquisitor
 ## Install Japanese (kuromoji) Analysis
 $ELASTICSEARCH_HOME/bin/plugin -i elasticsearch/elasticsearch-analysis-kuromoji/2.1.0
+## Install elasticsearch-head
+$ELASTICSEARCH_HOME/bin/plugin -i mobz/elasticsearch-head
