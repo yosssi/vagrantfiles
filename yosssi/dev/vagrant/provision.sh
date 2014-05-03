@@ -8,17 +8,19 @@ JAVA_FILE_NAME=jre-7u55-linux-x64.gz
 JAVA_DIRECTORY_NAME=jre1.7.0_55
 ELASTICSEARCH_DIRECTORY_NAME=elasticsearch-1.1.1
 ELASTICSEARCH_FILE_NAME=${ELASTICSEARCH_DIRECTORY_NAME}.tar.gz
+RBENV_SH=/etc/profile.d/rbenv.sh
 
 # Create .bash_profile
 touch $BASH_PROFILE
 chown vagrant:vagrant $BASH_PROFILE
 
-# Make sure the package repository is up to date
-echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 apt-get update
 
 # Install curl
 apt-get install -y curl
+
+# Install Git
+apt-get install -y git
 
 # Install Go 1.3beta1
 curl -o /usr/local/$GO_FILE_NAME https://storage.googleapis.com/golang/$GO_FILE_NAME
@@ -55,3 +57,37 @@ $ELASTICSEARCH_HOME/bin/plugin -i polyfractal/elasticsearch-inquisitor
 $ELASTICSEARCH_HOME/bin/plugin -i elasticsearch/elasticsearch-analysis-kuromoji/2.1.0
 ## Install elasticsearch-head
 $ELASTICSEARCH_HOME/bin/plugin -i mobz/elasticsearch-head
+
+# Install rbenv
+git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
+echo '# rbenv setup' > $RBENV_SH
+echo "export RBENV_ROOT=/usr/local/rbenv" >> $RBENV_SH
+echo "export PATH=\$PATH:\$RBENV_ROOT/bin" >> $RBENV_SH
+echo "eval \"\$(rbenv init -)\"" >> $RBENV_SH
+chmod +x $RBENV_SH
+echo "export RBENV_ROOT=/usr/local/rbenv" >> $BASH_PROFILE
+echo "export PATH=\$PATH:\$RBENV_ROOT/bin:\$RBENV_ROOT/shims" >> $BASH_PROFILE
+. $BASH_PROFILE
+chmod 777 /usr/local/rbenv
+
+# Install ruby-build
+mkdir /usr/local/rbenv/plugins
+git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
+
+# install packages for building ruby
+apt-get install -y git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev
+
+# Install Ruby 2.1.1
+curl -fsSL https://gist.github.com/mislav/a18b9d7f0dc5b9efc162.txt | rbenv install --patch 2.1.1
+rbenv global 2.1.1
+echo "export PATH=\$PATH:/usr/local/rbenv/versions/2.1.1/bin" >> $BASH_PROFILE
+. $BASH_PROFILE
+
+# Install Bundler
+gem install --no-rdoc --no-ri bundler
+
+# Install Rails
+gem install --no-rdoc --no-ri rails
+
+# Install Unicorn
+gem install --no-rdoc --no-ri unicorn
