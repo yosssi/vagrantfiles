@@ -78,7 +78,7 @@ git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins
 apt-get install -y git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev
 
 # Install Ruby 2.1.1
-curl -fsSL https://gist.github.com/mislav/a18b9d7f0dc5b9efc162.txt | rbenv install --patch 2.1.1
+curl -fsSL https://gist.githubusercontent.com/yosssi/9c82bcb09efc3ea17a73/raw | rbenv install --patch 2.1.1
 rbenv global 2.1.1
 echo "export PATH=\$PATH:/usr/local/rbenv/versions/2.1.1/bin" >> $BASH_PROFILE
 . $BASH_PROFILE
