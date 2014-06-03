@@ -3,7 +3,7 @@
 # Define variables.
 BASH_PROFILE=/home/vagrant/.bash_profile
 GO_HOME=/host/go
-GO_FILE_NAME=go1.3beta1.linux-amd64.tar.gz
+GO_FILE_NAME=go1.3rc1.linux-amd64.tar.gz
 JAVA_FILE_NAME=jre-7u55-linux-x64.gz
 JAVA_DIRECTORY_NAME=jre1.7.0_55
 ELASTICSEARCH_DIRECTORY_NAME=elasticsearch-1.1.1
