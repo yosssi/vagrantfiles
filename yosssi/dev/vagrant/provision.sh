@@ -46,7 +46,7 @@ rm /usr/local/lib/$ELASTICSEARCH_FILE_NAME
 echo "export ELASTICSEARCH_HOME=/usr/local/lib/$ELASTICSEARCH_DIRECTORY_NAME" >> $BASH_PROFILE
 echo "export PATH=\$PATH:\$ELASTICSEARCH_HOME/bin" >> $BASH_PROFILE
 . $BASH_PROFILE
-chmod 777 $ELASTICSEARCH_HOME
+chown vagrant:vagrant -R $ELASTICSEARCH_HOME
 
 # Install Elasticsearch plugins
 ## Install Marvel
@@ -93,3 +93,11 @@ gem install --no-rdoc --no-ri unicorn
 
 # Change the owner of /usr/local/rbenv from root to vagrant
 chown vagrant:vagrant -R /usr/local/rbenv
+
+# Install Node.js v0.10.28
+curl -o /usr/local/lib/node-v0.10.28-linux-x64.tar.gz http://nodejs.org/dist/v0.10.28/node-v0.10.28-linux-x64.tar.gz
+tar -C /usr/local/lib -xzf /usr/local/lib/node-v0.10.28-linux-x64.tar.gz
+rm /usr/local/lib/node-v0.10.28-linux-x64.tar.gz
+echo "export NODE_HOME=/usr/local/lib/node-v0.10.28-linux-x64" >> $BASH_PROFILE
+echo "export PATH=\$PATH:\$NODE_HOME/bin" >> $BASH_PROFILE
+. $BASH_PROFILE
