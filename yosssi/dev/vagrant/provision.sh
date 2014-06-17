@@ -3,7 +3,7 @@
 # Define variables.
 BASH_PROFILE=/home/vagrant/.bash_profile
 GO_HOME=/host/go
-GO_FILE_NAME=go1.3rc1.linux-amd64.tar.gz
+GO_FILE_NAME=go1.3rc2.linux-amd64.tar.gz
 JAVA_FILE_NAME=jre-7u55-linux-x64.gz
 JAVA_DIRECTORY_NAME=jre1.7.0_55
 ELASTICSEARCH_DIRECTORY_NAME=elasticsearch-1.1.1
@@ -22,7 +22,7 @@ apt-get install -y curl
 # Install Git
 apt-get install -y git
 
-# Install Go 1.3beta1
+# Install Go 1.3rc2
 curl -o /usr/local/$GO_FILE_NAME https://storage.googleapis.com/golang/$GO_FILE_NAME
 tar -C /usr/local -xzf /usr/local/$GO_FILE_NAME
 rm /usr/local/$GO_FILE_NAME
