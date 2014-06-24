@@ -101,3 +101,6 @@ rm /usr/local/lib/node-v0.10.28-linux-x64.tar.gz
 echo "export NODE_HOME=/usr/local/lib/node-v0.10.28-linux-x64" >> $BASH_PROFILE
 echo "export PATH=\$PATH:\$NODE_HOME/bin" >> $BASH_PROFILE
 . $BASH_PROFILE
+
+# Install Redis
+apt-get install -y redis-server
