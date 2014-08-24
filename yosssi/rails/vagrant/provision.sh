@@ -11,7 +11,7 @@ RBENV_SH=/etc/profile.d/rbenv.sh
 
 RUBY_VERSION=2.1.2
 
-RAILS_VERSION=4.2.0.beta1
+RAILS_VERSION=4.1.5
 
 NODE_VERSION=v0.10.31
 NODE_FILE_NAME=node-$NODE_VERSION-linux-x64.tar.gz
