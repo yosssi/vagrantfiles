@@ -11,6 +11,8 @@ RBENV_SH=/etc/profile.d/rbenv.sh
 
 RUBY_VERSION=2.1.2
 
+RAILS_VERSION=4.2.0.beta1
+
 NODE_VERSION=v0.10.31
 NODE_FILE_NAME=node-$NODE_VERSION-linux-x64.tar.gz
 
@@ -63,7 +65,7 @@ echo "export PATH=\$PATH:/usr/local/rbenv/versions/$RUBY_VERION/bin" >> $BASH_PR
 gem install --no-rdoc --no-ri bundler
 
 # Install Rails
-gem install --no-rdoc --no-ri rails
+gem install --no-rdoc --no-ri rails -v $RAILS_VERSION
 
 # Install Unicorn
 gem install --no-rdoc --no-ri unicorn
